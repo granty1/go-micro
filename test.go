@@ -9,6 +9,7 @@ import (
 	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-plugins/client/http"
 	"github.com/micro/go-plugins/registry/consul"
+	"micro_demo/models"
 )
 
 func main() {
@@ -17,24 +18,24 @@ func main() {
 		options.Addrs = []string{"127.0.0.1:8500"}
 	})
 	s := selector.NewSelector(
-			selector.Registry(consulReg),
-			selector.SetStrategy(selector.RoundRobin),
+		selector.Registry(consulReg),
+		selector.SetStrategy(selector.RoundRobin),
 	)
 
 	callAPI(s)
 }
 
-func callAPI(selector selector.Selector)  {
+func callAPI(selector selector.Selector) {
 	c := http.NewClient(
 		client.Selector(selector),
 		client.ContentType("application/json"),
 	)
-	req := c.NewRequest("product_service", "/v1/list", nil, )
+	req := c.NewRequest("product_service", "/v1/list", models.ProdsRequest{Size: 3})
 
-	var resp map[string]interface{}
+	var resp models.ProdsResponse
 	if err := c.Call(context.Background(), req, &resp); err != nil {
 		log.Error(err)
 	}
 
-	fmt.Println(resp)
+	fmt.Println(resp.GetData())
 }
