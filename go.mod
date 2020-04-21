@@ -10,5 +10,6 @@ require (
 	github.com/micro/go-micro/v2 v2.4.0 // indirect
 	github.com/micro/go-plugins v1.5.1
 	github.com/micro/protoc-gen-micro v1.0.0 // indirect
+	github.com/prometheus/common v0.7.0
 	golang.org/x/sys v0.0.0-20200406155108-e3b113bbe6a4 // indirect
 )

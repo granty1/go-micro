@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package protos;
+
+// Product model
+message ProdModel {
+  // @inject_tag: json:"pid"
+  int32 ProdId=1;
+  // @inject_tag: json:"pname"
+  string ProdName=2;
+}
+
+
+
